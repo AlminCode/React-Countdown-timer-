@@ -5,13 +5,14 @@ import Countdown from './components/Countdown'
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { deadline: 'May, 15, 2018' };
+    this.state = { deadline: 'June, 15, 2018' };
 }
 
   render() {
     return (
       <div className="App">
         <div className="App-date">
+        <input type="date"></input>
           {this.state.deadline}
         </div>
         <Countdown deadline={ this.state.deadline }/>
