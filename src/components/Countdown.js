@@ -11,45 +11,52 @@ class Countdown extends Component {
       hours: 0,
       minutes: 0,
       seconds: 0,
+      month: 0,
       lng: 'en'
-    };
-    this.seconds = i18n.t('seconds.label');
-    this.minutes = i18n.t('minutes.label');
-    this.hours = i18n.t('hours.label');
-    this.days = i18n.t('days.label');
-    this.months = i18n.t('months.label');
+    }; 
+    this.onLanguageChanged = this.onLanguageChanged.bind(this);
   }
 
   componentWillMount() {
     this.getTimeUntil(this.props.deadline);
   }
   componentDidMount() {
-    //setInterval(() => this.getTimeUntil(this.props.deadline), 1000);
+    setInterval(() => this.getTimeUntil(this.props.deadline), 1000);
   }
 
-  leading0(num) {
+  add0(num) {
     return num < 10 ? "0" + num : num;
   }
 
-  changeLanguage(){
-    i18n.changeLanguage('en', (err, t) => {
-      if (err) return console.log('something went wrong loading', err);
-      t('key'); // -> same as i18next.t
-    });
+  onLanguageChanged(e) {
+    var lang = e.target.value.toLowerCase();
+
+    this.setState({lng: lang});
+    i18n.changeLanguage(lang);
+
+    this.forceUpdate();
   }
 
+  daysInMonth(month, year){
+    return new Date(year, month, 0).getDate();
+  }
 
   getTimeUntil(deadline) {
     const time = Date.parse(deadline) - Date.parse(new Date());
+    console.log(new Date(deadline).getMonth())
     if (time < 0) {
       this.setState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
     } else {
       const seconds = Math.floor((time / 1000) % 60);
       const minutes = Math.floor((time / 1000 / 60) % 60);
       const hours = Math.floor((time / (1000 * 60 * 60)) % 24);
-      const days = Math.floor(time / (1000 * 60 * 60 * 24));
+      let days = Math.floor(time / (1000 * 60 * 60 * 24));
       const month = Math.floor(time / (1000 * 60 * 60 * 24 * 30));
-      this.setState({ days, hours, minutes, seconds });
+
+      if (month > 0){
+         days = days - this.daysInMonth(new Date(deadline).getMonth(), new Date(deadline).getFullYear()) 
+      }
+      this.setState({ month, days, hours, minutes, seconds });
     }
   }
 
@@ -60,7 +67,6 @@ class Countdown extends Component {
     height: 80px;
     float: left;
     margin-left: 10px;
-    margin-top:30%;
     font-weight: bold;
   `;
 
@@ -70,31 +76,44 @@ class Countdown extends Component {
     line-height: 22px;
     text-align: center;
   `;
-  
-  
 
+  const StartsIn = styled.div `
+  text-align: left;
+  margin-left: 10px;
+  `;
+  
     return (
       <CenterDiv>
+        <div>
+          <p>{i18n.t('toggle.label')}</p>
+          <input  onClick={(e) => this.onLanguageChanged(e)} type="button" value="EN"></input>
+          <input  onClick={(e) => this.onLanguageChanged(e)} type="button" value="DE"></input>
+        </div>
+        
+        <StartsIn>{i18n.t('start.label')}</StartsIn>
         <StyledDiv>
-          <NumberBox countdown={this.leading0(this.state.days)} value={this.days}></NumberBox>
+          <NumberBox countdown={this.add0(this.state.month)} value={i18n.t('months.label')}></NumberBox>
+        </StyledDiv>
+
+        <StyledDiv> 
+          <NumberBox countdown={this.add0(this.state.days)} value={i18n.t('days.label')}></NumberBox>
         </StyledDiv>
 
         <StyledDiv>
-          <NumberBox countdown={this.leading0(this.state.hours)} value={this.hours}></NumberBox>
+          <NumberBox countdown={this.add0(this.state.hours)} value={i18n.t('hours.label')}></NumberBox>
         </StyledDiv>
 
         <StyledDiv>
-          <NumberBox countdown={this.leading0(this.state.minutes)} value={this.minutes}></NumberBox>
+          <NumberBox countdown={this.add0(this.state.minutes)} value={i18n.t('minutes.label')}></NumberBox>
         </StyledDiv>
 
         <StyledDiv>
-          <NumberBox countdown={this.leading0(this.state.seconds)} value={this.seconds}></NumberBox>
+          <NumberBox countdown={this.add0(this.state.seconds)} value={i18n.t('seconds.label')}></NumberBox>
         </StyledDiv>
-        {/* <StyledDiv>
-          <NumberBox countdown={this.leading0(this.state.month)} value="Month"></NumberBox>
-        </StyledDiv> */}
       </CenterDiv>
     );
   }
+
+  
 }
 export default Countdown;

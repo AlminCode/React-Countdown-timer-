@@ -5,7 +5,7 @@ i18next
     interpolation: {
       escapeValue: false,
     },
-    lng: 'en', // 'en' | 'es'
+    lng: 'en',  // 'en' | 'es'
     resources: {
       en: {
         translation: {
@@ -13,8 +13,9 @@ i18next
           minutes: { label: 'Minutes', },
           hours: { label: 'Hours', },
           days: { label: 'Days', },
-          months: { label: 'Months', }
-          
+          months: { label: 'Months', },
+          toggle: {label: 'Toggle language'},
+          start: {label: 'Starts in', }
         },
       },
       de: {
@@ -23,7 +24,9 @@ i18next
           minutes: { label: 'Minuten', },
           hours: { label: 'Stunden', },
           days: { label: 'Tage', },
-          months: { label: 'Monate', }
+          months: { label: 'Monate', },
+          toggle: {label: 'Sprache ändern'},
+          start: {label: 'Beginnt in', }
         },
       },
     },
