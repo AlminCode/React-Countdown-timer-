@@ -13,14 +13,18 @@ class Countdown extends Component {
       seconds: 0,
       lng: 'en'
     };
-    this.days = i18n.t('days.label')
+    this.seconds = i18n.t('seconds.label');
+    this.minutes = i18n.t('minutes.label');
+    this.hours = i18n.t('hours.label');
+    this.days = i18n.t('days.label');
+    this.months = i18n.t('months.label');
   }
 
   componentWillMount() {
     this.getTimeUntil(this.props.deadline);
   }
   componentDidMount() {
-    setInterval(() => this.getTimeUntil(this.props.deadline), 1000);
+    //setInterval(() => this.getTimeUntil(this.props.deadline), 1000);
   }
 
   leading0(num) {
@@ -52,15 +56,18 @@ class Countdown extends Component {
   render() {
   const StyledDiv = styled.div `
     border:1px solid;
-    width:100px;
-    height: 100px;
+    width:80px;
+    height: 80px;
     float: left;
+    margin-left: 10px;
+    margin-top:30%;
+    font-weight: bold;
   `;
 
   const CenterDiv = styled.div `
     display: inline-block;
     height: 90px;
-    line-height: 90px;
+    line-height: 22px;
     text-align: center;
   `;
   
@@ -73,15 +80,15 @@ class Countdown extends Component {
         </StyledDiv>
 
         <StyledDiv>
-          <NumberBox countdown={this.leading0(this.state.hours)} value="Hours"></NumberBox>
+          <NumberBox countdown={this.leading0(this.state.hours)} value={this.hours}></NumberBox>
         </StyledDiv>
 
         <StyledDiv>
-          <NumberBox countdown={this.leading0(this.state.minutes)} value="Minutes"></NumberBox>
+          <NumberBox countdown={this.leading0(this.state.minutes)} value={this.minutes}></NumberBox>
         </StyledDiv>
 
         <StyledDiv>
-          <NumberBox countdown={this.leading0(this.state.seconds)} value="Seconds"></NumberBox>
+          <NumberBox countdown={this.leading0(this.state.seconds)} value={this.seconds}></NumberBox>
         </StyledDiv>
         {/* <StyledDiv>
           <NumberBox countdown={this.leading0(this.state.month)} value="Month"></NumberBox>

@@ -3,24 +3,27 @@ import i18next from 'i18next';
 i18next
   .init({
     interpolation: {
-      // React already does escaping
       escapeValue: false,
     },
     lng: 'en', // 'en' | 'es'
-    // Using simple hardcoded resources for simple example
     resources: {
       en: {
         translation: {
-          age: { label: 'Age', },
-          home: { label: 'Home', },
+          seconds: { label: 'Seconds', },
+          minutes: { label: 'Minutes', },
+          hours: { label: 'Hours', },
           days: { label: 'Days', },
+          months: { label: 'Months', }
+          
         },
       },
-      es: {
+      de: {
         translation: {
-          age: { label: 'Años', },
-          home: { label: 'Casa', },
-          name: { label: 'Nombre', },
+          seconds: { label: 'Sekunden', },
+          minutes: { label: 'Minuten', },
+          hours: { label: 'Stunden', },
+          days: { label: 'Tage', },
+          months: { label: 'Monate', }
         },
       },
     },

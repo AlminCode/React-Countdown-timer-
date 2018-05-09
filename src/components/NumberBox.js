@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 
 
 const NumberBox = (props) => (
-  <div>{props.countdown} {props.value}</div>
+  <div>
+    <p>{props.countdown}</p>
+    <p>{props.value}</p>
+  </div>
 )
 
 export default NumberBox;
