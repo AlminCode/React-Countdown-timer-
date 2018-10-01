@@ -8,4 +8,4 @@ npm install
 npm run
 ```
 
-<img src="https://imgur.com/a/o4n06ho" >
+<img src="https://imgur.com/a/o4n06ho" />
