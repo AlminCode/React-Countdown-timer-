@@ -8,4 +8,4 @@ npm install
 npm run
 ```
 
-<img src="https://imgur.com/a/o4n06ho" width="500" alt="gh-pages branch setting">
+<img src="https://imgur.com/a/o4n06ho" >
